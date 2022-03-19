@@ -4,8 +4,11 @@ pipeline {
     maven 'maven3'
   }
   options {
-    buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '10', numToKeepStr: '7')
+    buildDiscarder logRotator(daysToKeepStr: '10', numToKeepStr: '7')
   }
+  parameters {
+  choice choices: ['develop', 'qa', 'master'], description: 'choice the branch to build', name: 'BranchName'
+}
   stages {
     stage("git clone") {
       steps {
